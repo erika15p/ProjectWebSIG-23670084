@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pemantauan Tutupan Hutan Blora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&family=Stack+Sans+Notch:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Header */
+        .header {
+            background-color: #A8D5BA;
+            /* soft green */
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #4E8D5A;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: "Stack Sans Notch", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 30px;
+            font-weight: bold;
+            color: #2D5A3A;
+        }
+
+        /* Navigasi */
+        .nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #1a5a28;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        /* Garis hover */
+        .nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ffffff;
+            /* garis hover putih */
+            transition: width 0.3s ease;
+        }
+
+        /* Saat hover garis muncul */
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Garis untuk halaman aktif */
+        .nav a.active::after {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+
+            .header {
+                flex-direction: column;
+                /* header jadi dua baris */
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                /* tampil */
+            }
+
+            .nav {
+                margin-top: 10px;
+                width: 100%;
+                flex-direction: column;
+                /* menu turun ke bawah */
+                gap: 15px;
+            }
+
+            .nav.active {
+                display: flex;
+                /* muncul saat toggle ditekan */
+            }
+
+            .nav-link {
+                font-size: 17px;
+                padding: 8px 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+                /* agar bawah tidak ada garis */
+            }
+
+            /* hapus garis putih bawah saat hover di HP */
+            .nav-link:hover {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .hutan-section {
+            padding: 60px 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #1a8d3d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 50px;
+            text-align: justify;
+        }
+
+        .section-desc .link-ref {
+            color: #1a8d3d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 60px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon {
+            font-size: 40px;
+            color: #1a8d3d;
+            min-width: 50px;
+        }
+
+        .info-item h3 {
+            font-size: 20px;
+            color: #1a8d3d;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .judul-analisis {
+            font-family: 'Poppins';
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+
+        .judul-analisis h1 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+
+        .judul-analisis p {
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: 300;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .diagram-batang {
+            font-family: 'Poppins';
+            text-align: center;
+        }
+
+        .diagram-batang h4 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #1b5e20;
+        }
+
+        .chart-container {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            height: 300px;
+        }
+
+        .footer {
+            background-color: #4E8D5A;
+            /* hijau gelap selaras header */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 3px solid #2D5A3A;
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-eye"></i> Forest Watch
+        </div>
+
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="sebaran.html" class="nav-link">Sebaran Luas Hutan</a>
+            <a href="perbandingan.html" class="nav-link">Perbandingan</a>
+            <a href="analisis.html" class="nav-link">Analisis</a>
+        </nav>
+    </header>
+
+    <section class="judul-analisis">
+        <h1>Analisis Kondisi Tutupan Hutan Kabupaten Blora</h1>
+        <p>
+            Meskipun dari tahun 2021 ke 2022 mengalami penurunan, tahun 2024 luas tutupan hutan meningkat dari tahun
+            sebelumnya. Analisis rata-rata perubahan tutupan hutan per tahun mencapai sekitar 0,01 hektar. Meskipun
+            angka tersebut relatif kecil, secara ekologi penurunan memberikan dampak terhadap emisi karbon, iklim, dan
+            ketersediaan air tanah. Hasil analisis bisa dimanfaatkan pihak yang berwenang dengan kontribusi masyarakat
+            dalam menciptakan
+            pengelolaan hutan yang lebih berkelanjutan dan optimal.
+        </p>
+    </section>
+
+    <section class="diagram-batang">
+        <h4>Statistik Kehilangan Tutupan Hutan<br>Kabupaten Blora Tahun 2020-2024</h4>
+        <div class="chart-container">
+            <canvas id="chartHutan"></canvas>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Forest Watch — Sistem Informasi Geografis Pemantauan Tutupan Hutan</p>
+    </footer>
+
+
+    <!-- SCRIPT MENANDAI MENU AKTIF -->
+    <script>
+        const currentPage = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll(".nav a");
+
+        links.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('chartHutan').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Luas Tutupan Hutan (hektar)',
+                        data: [90416.52, 90416.52, 90416.12, 90416.15, 90416.12],
+                        backgroundColor: '#2e7d32'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            suggestedMin: 90415.8,
+                            suggestedMax: 90417
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pemantauan Tutupan Hutan Blora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&family=Stack+Sans+Notch:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Header */
+        .header {
+            background-color: #A8D5BA;
+            /* soft green */
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #4E8D5A;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: "Stack Sans Notch", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 30px;
+            font-weight: bold;
+            color: #2D5A3A;
+        }
+
+        /* Navigasi */
+        .nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #1a5a28;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        /* Garis hover */
+        .nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ffffff;
+            /* garis hover putih */
+            transition: width 0.3s ease;
+        }
+
+        /* Saat hover garis muncul */
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Garis untuk halaman aktif */
+        .nav a.active::after {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        /* MODE ANDROID */
+        @media (max-width: 768px) {
+
+            .header {
+                flex-direction: column;
+                /* header jadi dua baris */
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                /* tampil */
+            }
+
+            .nav {
+                margin-top: 10px;
+                width: 100%;
+                flex-direction: column;
+                /* menu turun ke bawah */
+                gap: 15px;
+            }
+
+            .nav.active {
+                display: flex;
+                /* muncul saat toggle ditekan */
+            }
+
+            .nav-link {
+                font-size: 17px;
+                padding: 8px 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+                /* agar bawah tidak ada garis */
+            }
+
+            /* hapus garis putih bawah saat hover di HP */
+            .nav-link:hover {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            }
+        }
+
+
+        .hutan-section {
+            padding: 60px 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #1a8d3d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 50px;
+            text-align: justify;
+        }
+
+        .section-desc .link-ref {
+            color: #1a8d3d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 60px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon {
+            font-size: 40px;
+            color: #1a8d3d;
+            min-width: 50px;
+        }
+
+        .info-item h3 {
+            font-size: 20px;
+            color: #1a8d3d;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================= */
+        /* HERO SECTION */
+        /* ========================= */
+
+        .hero {
+            width: 100%;
+            height: 70vh;
+            /* Tinggi area hero */
+            background: url('images/hutan.jpg') center/cover no-repeat;
+            /* Ganti dengan fotomu */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Layer gelap untuk memperjelas teks */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            /* warna teks putih */
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 1.6;
+            opacity: 0.95;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .hero {
+                height: 55vh;
+            }
+
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+        }
+
+
+        .footer {
+            background-color: #4E8D5A;
+            /* hijau gelap selaras header */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 3px solid #2D5A3A;
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-eye"></i> Forest Watch
+        </div>
+
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="sebaran.html" class="nav-link">Sebaran Luas Hutan</a>
+            <a href="perbandingan.html" class="nav-link">Perbandingan</a>
+            <a href="analisis.html" class="nav-link">Analisis</a>
+        </nav>
+    </header>
+
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sistem Informasi Geografis (GIS) Visualisasi Sebaran Hutan Tahun 2024 di Kabupaten Blora</h1>
+            <p>Menelusuri peran, potensi, serta kondisi tutupan hutan di Blora secara informatif dan interaktif.</p>
+        </div>
+    </section>
+
+    <section class="hutan-section">
+        <div class="container">
+            <h2 class="section-title">Hutan Blora?</h2>
+
+            <p class="section-desc">
+                Kabupaten Blora menjadi wilayah yang memiliki hutan produksi terluas se-Jawa Tengah.
+                Sekitar 16,48% dari total luas hutan produksi di Jawa Tengah atau 90.760,08 hektar merupakan
+                Kawasan hutan produksi Kabupaten Blora
+                <a href="#" class="link-ref">[Badan Statistik Kabupaten Blora]</a>.
+                Tutupan hutan berdasarkan fungsinya dibagi menjadi dua, yaitu hutan produksi dan cagar alam.
+                Sedangkan berdasarkan statusnya, tutupan hutan produksi dibagi menjadi hutan negara dan hutan hak/atau
+                hutan rakyat.
+            </p>
+
+            <div class="info-grid">
+
+                <!-- ITEM 1 -->
+                <div class="info-item">
+                    <div class="icon">
+                        🌱
+                    </div>
+                    <div>
+                        <h3>Hutan Produksi</h3>
+                        <p>
+                            Hutan produksi memiliki dua jenis, yaitu hutan produksi terbatas seluas 270,20 hektar dan
+                            hutan produksi tetap seluas 90.404,48 hektar (RTRW Kabupaten Blora 2021–2041).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ITEM 2 -->
+                <div class="info-item">
+                    <div class="icon">
+                        🤝
+                    </div>
+                    <div>
+                        <h3>Peran</h3>
+                        <p>
+                            Hutan memiliki peranan penting dalam menjaga ekosistem, mencegah bencana, serta
+                            dapat menopang kehidupan sosial dan ekonomi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="info-item">
+                    <div class="icon">
+                        📈
+                    </div>
+                    <div>
+                        <h3>Potensi</h3>
+                        <p>
+                            Tutupan hutan Kabupaten Blora memiliki potensi hasil hutan kayu dan non kayu
+                            yang mendukung perekonomian serta memberi manfaat ekologis bagi sistem hidrologis,
+                            stabilitas lereng, dan habitat flora–fauna.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ITEM 4 -->
+                <div class="info-item">
+                    <div class="icon">
+                        ⚠️
+                    </div>
+                    <div>
+                        <h3>Deforestasi</h3>
+                        <p>
+                            Peralihan hutan menjadi non hutan secara permanen akibat ulah manusia berdampak
+                            pada penurunan produktivitas hutan dan meningkatnya risiko bencana alam.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <p>&copy; 2025 Forest Watch — Sistem Informasi Geografis Pemantauan Tutupan Hutan</p>
+    </footer>
+
+
+    <!-- SCRIPT MENANDAI MENU AKTIF -->
+    <script>
+        const currentPage = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll(".nav a");
+
+        links.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

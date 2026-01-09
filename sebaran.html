@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pemantauan Tutupan Hutan Blora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&family=Stack+Sans+Notch:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Header */
+        .header {
+            background-color: #A8D5BA;
+            /* soft green */
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #4E8D5A;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: "Stack Sans Notch", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 30px;
+            font-weight: bold;
+            color: #2D5A3A;
+        }
+
+        /* Navigasi */
+        .nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #1a5a28;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        /* Garis hover */
+        .nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ffffff;
+            /* garis hover putih */
+            transition: width 0.3s ease;
+        }
+
+        /* Saat hover garis muncul */
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Garis untuk halaman aktif */
+        .nav a.active::after {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+
+            .header {
+                flex-direction: column;
+                /* header jadi dua baris */
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                /* tampil */
+            }
+
+            .nav {
+                margin-top: 10px;
+                width: 100%;
+                flex-direction: column;
+                /* menu turun ke bawah */
+                gap: 15px;
+            }
+
+            .nav.active {
+                display: flex;
+                /* muncul saat toggle ditekan */
+            }
+
+            .nav-link {
+                font-size: 17px;
+                padding: 8px 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+                /* agar bawah tidak ada garis */
+            }
+
+            /* hapus garis putih bawah saat hover di HP */
+            .nav-link:hover {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            /* putih bersih */
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+            margin: 0;
+            color: #2e5f2e;
+            /* hijau gelap untuk tema hutan */
+            font-size: 26px;
+        }
+
+        .container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .row {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        iframe {
+            width: 90%;
+            height: 400px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            iframe {
+                height: 300px;
+            }
+        }
+
+
+        .hutan-section {
+            padding: 60px 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #1a8d3d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 50px;
+            text-align: justify;
+        }
+
+        .section-desc .link-ref {
+            color: #1a8d3d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 60px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon {
+            font-size: 40px;
+            color: #1a8d3d;
+            min-width: 50px;
+        }
+
+        .info-item h3 {
+            font-size: 20px;
+            color: #1a8d3d;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================= */
+        /* HERO SECTION */
+        /* ========================= */
+
+        .hero {
+            width: 100%;
+            height: 70vh;
+            /* Tinggi area hero */
+            background: url('images/hutan.jpg') center/cover no-repeat;
+            /* Ganti dengan fotomu */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Layer gelap untuk memperjelas teks */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            /* warna teks putih */
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 1.6;
+            opacity: 0.95;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .hero {
+                height: 55vh;
+            }
+
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+        }
+
+        .p{
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #4E8D5A;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 3px solid #2D5A3A;
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-eye"></i> Forest Watch
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="sebaran.html" class="nav-link">Sebaran Luas Hutan</a>
+            <a href="perbandingan.html" class="nav-link">Perbandingan</a>
+            <a href="analisis.html" class="nav-link">Analisis</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Sebaran Peta Hutan Tahun 2024 Kabupaten Blora</h1>
+        <!-- ROW 1 -->
+        <div class="row">
+            <iframe src="luashutan/index.html"></iframe>
+        </div>
+        <h1>Rencana Tata Ruang Wilayah Hutan <br> Kabupaten Blora (2021-2041)</h1>
+        <!-- ROW 2 -->
+        <div class="row">
+            <iframe src="GIS/index.html"></iframe>
+        </div>
+        <div class="row">
+            <p class="p">Pemerintah Kabupaten Blora telah menetapkan Rencana Tata Ruang Wilayah (RTRW) 2021–2041 yang mengatur zonasi, peruntukan ruang, dan batas minimum tutupan hutan yang harus dipertahankan. Oleh karena itu, membandingkan luas hutan aktual pada tahun 2024 dengan ketentuan tutupan hutan dalam RTRW serta melihat tren perubahan hutan dalam lima tahun terakhir menjadi langkah penting untuk menilai efektivitas kebijakan tata ruang dan pengelolaan lingkungan di daerah tersebut.</p>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Forest Watch — Sistem Informasi Geografis Pemantauan Tutupan Hutan</p>
+    </footer>
+
+
+    <!-- SCRIPT MENANDAI MENU AKTIF -->
+    <script>
+        const currentPage = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll(".nav a");
+
+        links.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
